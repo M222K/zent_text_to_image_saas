@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
+import { AppContext } from '../context/AppContext'
 
 const Result = () => {
+
+    const { generateImage } = useContext(AppContext);
+
     const [image, setImage] = useState(assets.sample_img_1);
     const [isImageLoaded, setisImageLoaded] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -11,7 +15,24 @@ const Result = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        
+        if (!input.trim()) {
+            return; // Don't submit if input is empty
+        }
+        
+        setLoading(true);
 
+        try {
+            const image = await generateImage(input.trim());
+            if (image) {
+                setisImageLoaded(true);
+                setImage(image);
+            }
+        } catch (error) {
+            console.error("Error generating image:", error);
+        } finally {
+            setLoading(false);
+        }
     }
 
 
@@ -49,7 +70,7 @@ const Result = () => {
                         placeholder='Describe what you want to generate'
                         className='flex-1 bg-transparent outline-none ml-8 max-sm:w-20 placeholder-color' />
 
-                    <button className='bg-zinc-900 px-10 sm:px-16 py-3 rounded-full'>Generate</button>
+                    <button type="submit" className='bg-zinc-900 px-10 sm:px-16 py-3 rounded-full'>Generate</button>
                 </div>
             }
 
