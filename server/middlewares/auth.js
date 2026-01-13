@@ -16,6 +16,8 @@ const userAuth =async(req,res,next)=>{
         const tokenDecoded=jwt.verify(token,process.env.JWT_SECRET);
 
         if(tokenDecoded.id){
+            // ensure body exists even if request was sent without JSON payload
+            if (!req.body) req.body = {};
             //add the user id from token to body
             req.body.userId=tokenDecoded.id;
         }else{
@@ -30,7 +32,7 @@ const userAuth =async(req,res,next)=>{
     }catch(error){
         res.json({
             success:false,
-            messgae:error.message
+            message:error.message
         })
 
     }

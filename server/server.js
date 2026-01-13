@@ -4,6 +4,7 @@ import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './config/mongodb.js'
 import userRouter from './routes/userRoutes.js';
+import imageRouter from './routes/imageRoutes.js'
 
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -22,6 +23,8 @@ try {
 }
 
 app.use('/api/user',userRouter);  //whenever we type localhost url /this it will hit the api to get the data-test it via postman
+
+app.use('/api/image',imageRouter);
 
 
 app.get('/', (req, res) => {
