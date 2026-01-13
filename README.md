@@ -79,44 +79,7 @@ cd ../server
 npm install
 ```
 
-### 4. Environment Variables Setup
-
-#### Backend Environment Variables
-
-Create a `.env` file in the `server` directory with the following variables:
-
-```env
-# Server Configuration
-PORT=4000
-
-# MongoDB Configuration
-MONGODB_URL=mongodb://localhost:27017
-# OR for MongoDB Atlas:
-# MONGODB_URL=mongodb+srv://username:password@cluster.mongodb.net
-
-# JWT Secret (use a strong random string)
-JWT_SECRET=your_jwt_secret_key_here
-
-# Clipdrop API Key
-CLIPDROP_API=your_clipdrop_api_key_here
-
-# Razorpay Configuration
-RAZORPAY_API_KEY=your_razorpay_api_key
-RAZORPAY_SECRET=your_razorpay_secret_key
-CURRENCY=USD
-```
-
-#### Frontend Environment Variables
-
-Create a `.env` file in the `client` directory:
-
-```env
-VITE_RAZORPAY_API_KEY=your_razorpay_api_key
-```
-
-**Note**: Replace all placeholder values with your actual API keys and credentials.
-
-### 5. Get API Keys
+### 4. Get API Keys
 
 #### Clipdrop API Key
 1. Visit [Clipdrop API](https://clipdrop.co/apis)
@@ -133,49 +96,6 @@ VITE_RAZORPAY_API_KEY=your_razorpay_api_key
 - **Option 1 (Local)**: Install MongoDB locally and use `mongodb://localhost:27017`
 - **Option 2 (Cloud)**: Use MongoDB Atlas (free tier available) and get your connection string
 
-## 🚀 Running the Application
-
-### Development Mode
-
-#### Start the Backend Server
-
-```bash
-cd server
-npm run server
-# or
-npm start
-```
-
-The server will run on `http://localhost:4000` (or the port specified in your `.env` file).
-
-#### Start the Frontend Development Server
-
-Open a new terminal window:
-
-```bash
-cd client
-npm run dev
-```
-
-The frontend will run on `http://localhost:5173` (default Vite port).
-
-### Production Build
-
-#### Build the Frontend
-
-```bash
-cd client
-npm run build
-```
-
-The production build will be created in the `client/dist` directory.
-
-#### Preview Production Build
-
-```bash
-cd client
-npm run preview
-```
 
 ## 📁 Project Structure
 
@@ -213,41 +133,6 @@ zent_text_to_image_saas/
 └── README.md
 ```
 
-## 🔌 API Endpoints
-
-### User Routes (`/api/user`)
-
-- `POST /api/user/register` - Register a new user
-  - Body: `{ name, email, password }`
-  
-- `POST /api/user/login` - Login user
-  - Body: `{ email, password }`
-  
-- `GET /api/user/credits` - Get user credit balance
-  - Headers: `{ token: <jwt_token> }`
-  
-- `POST /api/user/pay-razor` - Create Razorpay order
-  - Headers: `{ token: <jwt_token> }`
-  - Body: `{ planId: 'Basic' | 'Advanced' | 'Business' }`
-  
-- `POST /api/user/verify-razor` - Verify Razorpay payment
-  - Body: `{ razorpay_order_id, razorpay_payment_id, razorpay_signature }`
-
-### Image Routes (`/api/image`)
-
-- `POST /api/image/generate-image` - Generate image from text prompt
-  - Headers: `{ token: <jwt_token> }`
-  - Body: `{ prompt: <text_description> }`
-
-## 💳 Pricing Plans
-
-| Plan | Credits | Price |
-|------|---------|-------|
-| Basic | 100 credits | $10 |
-| Advanced | 500 credits | $50 |
-| Business | 5000 credits | $250 |
-
-**Note**: New users receive 5 free credits upon registration.
 
 ## 🔐 Security Features
 
