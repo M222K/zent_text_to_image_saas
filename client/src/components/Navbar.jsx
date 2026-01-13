@@ -5,7 +5,7 @@ import { AppContext } from '../context/AppContext';
 
 const Navbar = () => {
 
-    const {user,setshowLogin}=useContext(AppContext);
+    const {user,setshowLogin,logout,credit}=useContext(AppContext);
 
     const navigate = useNavigate();
     //to navigate to any page in the app here in navbar we are using it to navigate to the pricing page
@@ -31,11 +31,11 @@ const Navbar = () => {
                             className='flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 hover:scale-105 transition-all duration-700 rounded-full'>
                             <img src={assets.credit_star} alt="credit-star" className='w-5' />
                             <p
-                                className='text-xs sm:text-sm font-medium text-gray-600'>Credit left: 50</p>
+                                className='text-xs sm:text-sm font-medium text-gray-600'>Credit left: {credit}</p>
                         </button>
 
                         <p
-                            className='text-gray-600 max-sm:hidden pl-4 py-3'>Hi,User</p>
+                            className='text-gray-600 max-sm:hidden pl-4 py-3'>Hi,{user.name}</p>
 
                         <div
                             className='relative group'>
@@ -47,6 +47,7 @@ const Navbar = () => {
                             <ul 
                             className='list-none m-0 p-2 bg-white rounded-md border'>
                                 <li
+                                onClick={logout}
                                 className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                             </ul>
                         </div>
