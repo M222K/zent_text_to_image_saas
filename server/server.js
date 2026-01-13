@@ -13,7 +13,13 @@ const app = express();
 app.use(express.json())
 app.use(cors());
 
-await connectDB();
+// Connect to database with error handling
+try {
+    await connectDB();
+} catch (error) {
+    console.error("Failed to start server due to database connection error:", error.message);
+    process.exit(1);
+}
 
 app.use('/api/user',userRouter);  //whenever we type localhost url /this it will hit the api to get the data-test it via postman
 

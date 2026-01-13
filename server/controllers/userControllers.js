@@ -1,6 +1,6 @@
 //different controller function for user registration , logout and all with api connection
 
-import userModel from "../models/userModels";
+import userModel from "../models/userModels.js";
 import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken'
 
@@ -79,7 +79,7 @@ const loginUser = async (req, res) => {
             })
 
         } else {
-            return res({
+            return res.json({
                 success: false,
                 message: "Invalid credentials!"
             })
@@ -97,4 +97,31 @@ const loginUser = async (req, res) => {
 
 }
 
-export  default {registerUser,loginUser};
+//fetch the middleware which will take the userid from token and give
+const userCredits = async (req, res) => {
+    try {
+        const { userId } = req.body
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            console.log("user not found!")
+        }
+
+        res.json({
+            success: true,
+            credits: user.creditBalance,
+            user: { name: user.name }
+        })
+
+    } catch (error) {
+        console.log(error.message)
+        res.json({
+            success:false,
+            message:error.message
+        })
+
+    }
+
+}
+
+export { registerUser, loginUser,userCredits };

@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 //create schema  for the user
 const userSchema=new mongoose.Schema({
